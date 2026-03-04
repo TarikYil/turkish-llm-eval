@@ -194,6 +194,7 @@ If you use this code or the benchmark results in your research, please cite:
   doi       = {10.5281/zenodo.18861750},
   url       = {https://doi.org/10.5281/zenodo.18861750}
 }
+```
 
 ## License
 
