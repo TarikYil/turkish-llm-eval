@@ -1,6 +1,6 @@
 # Turkish LLM Benchmark Suite
 
-**Comparative Analysis of Reliability and Reasoning in Turkish Large Language Models**
+**A Multidimensional Comparison of Turkish Large Language Models: Knowledge, Reasoning, and Reliability**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18861750.svg)](https://doi.org/10.5281/zenodo.18861750)
@@ -13,7 +13,7 @@
 
 This repository contains the benchmarking code and evaluation pipeline accompanying the paper:
 
-> **Comparative Analysis of Reliability and Reasoning in Turkish Large Language Models**
+> **A Multidimensional Comparison of Turkish Large Language Models: Knowledge, Reasoning, and Reliability**
 > *Submitted to SIU 2026 — IEEE 34th Signal Processing and Communications Applications Conference*
 
 The framework evaluates **7 open-source Turkish LLMs** across **6 diverse benchmarks**, covering knowledge, reasoning, mathematical problem-solving, commonsense inference, truthfulness, and hallucination detection capabilities.
@@ -178,7 +178,7 @@ If you use this code or the benchmark results in your research, please cite:
 
 ```bibtex
 @inproceedings{turkish_llm_eval_siu2026,
-  title     = {Comparative Evaluation of Open-Source Turkish Large Language Models Across Multiple Benchmarks},
+  title     = {A Multidimensional Comparison of Turkish Large Language Models: Knowledge, Reasoning, and Reliability},
   author    = {Yilmaz, Muhammet Tarik and Cakir, Yusuf},
   booktitle = {IEEE 34th Signal Processing and Communications Applications Conference (SIU)},
   year      = {2026},
@@ -186,7 +186,7 @@ If you use this code or the benchmark results in your research, please cite:
 }
 
 @software{yilmaz_turkish_llm_eval_2026,
-  author    = {Yilmaz, Muhammet Tarik},
+  author    = {Yilmaz, Muhammet Tarik and Cakır, Yusuf},
   title     = {Turkish LLM Benchmark Suite},
   year      = {2026},
   version   = {v1.0.0},
