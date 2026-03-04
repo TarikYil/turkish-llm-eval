@@ -1,6 +1,6 @@
 # Turkish LLM Benchmark Suite
 
-**A Comprehensive Evaluation Framework for Open-Source Turkish Large Language Models**
+**Comparative Analysis of Reliability and Reasoning in Turkish Large Language Models**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18861750.svg)](https://doi.org/10.5281/zenodo.18861750)
@@ -13,7 +13,7 @@
 
 This repository contains the benchmarking code and evaluation pipeline accompanying the paper:
 
-> **Comparative Evaluation of Open-Source Turkish Large Language Models Across Multiple Benchmarks**
+> **Comparative Analysis of Reliability and Reasoning in Turkish Large Language Models**
 > *Submitted to SIU 2026 — IEEE 34th Signal Processing and Communications Applications Conference*
 
 The framework evaluates **7 open-source Turkish LLMs** across **6 diverse benchmarks**, covering knowledge, reasoning, mathematical problem-solving, commonsense inference, truthfulness, and hallucination detection capabilities.
