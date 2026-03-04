@@ -191,6 +191,15 @@ If you use this code or the benchmark results in your research, please cite:
 }
 ```
 
+@software{yilmaz_turkish_llm_eval_2026,
+  author  = {Yilmaz, Muhammet Tarik},
+  title   = {Turkish LLM Benchmark Suite},
+  year    = {2026},
+  version = {v1.0.0},
+  publisher = {Zenodo},
+  doi     = {10.5281/zenodo.18861750},
+  url     = {https://doi.org/10.5281/zenodo.18861750}
+}
 ---
 
 ## License
