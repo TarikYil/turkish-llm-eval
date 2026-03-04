@@ -178,29 +178,22 @@ If you use this code or the benchmark results in your research, please cite:
 
 ```bibtex
 @inproceedings{turkish_llm_eval_siu2026,
-<<<<<<< HEAD
-  title     = {Comparative Analysis of Reliability and Reasoning in Turkish Large Language Models},
-  author    = {Y{\i}lmaz, Muhammet Tar{\i}k and \c{C}ak{\i}r, Yusuf},
-=======
   title     = {Comparative Evaluation of Open-Source Turkish Large Language Models Across Multiple Benchmarks},
   author    = {Yilmaz, Muhammet Tarik and Cakir, Yusuf},
->>>>>>> b915394d4cfabba062db905e41b84400271d21d9
   booktitle = {IEEE 34th Signal Processing and Communications Applications Conference (SIU)},
   year      = {2026},
   note      = {Code available at https://github.com/TarikYil/turkish-llm-eval}
 }
-```
 
 @software{yilmaz_turkish_llm_eval_2026,
-  author  = {Yilmaz, Muhammet Tarik},
-  title   = {Turkish LLM Benchmark Suite},
-  year    = {2026},
-  version = {v1.0.0},
+  author    = {Yilmaz, Muhammet Tarik},
+  title     = {Turkish LLM Benchmark Suite},
+  year      = {2026},
+  version   = {v1.0.0},
   publisher = {Zenodo},
-  doi     = {10.5281/zenodo.18861750},
-  url     = {https://doi.org/10.5281/zenodo.18861750}
+  doi       = {10.5281/zenodo.18861750},
+  url       = {https://doi.org/10.5281/zenodo.18861750}
 }
----
 
 ## License
 
