@@ -178,7 +178,7 @@ If you use this code or the benchmark results in your research, please cite:
 ```bibtex
 @inproceedings{turkish_llm_eval_siu2026,
   title     = {Comparative Evaluation of Open-Source Turkish Large Language Models Across Multiple Benchmarks},
-  author    = {Y{\i}lmaz, Muhammet Tar{\i}k and \c{C}ak{\i}r, Yusuf},
+  author    = {Yilmaz, Muhammet Tarik and \c Cakir, Yusuf},
   booktitle = {IEEE 34th Signal Processing and Communications Applications Conference (SIU)},
   year      = {2026},
   note      = {Code available at https://github.com/TarikYil/turkish-llm-eval}
