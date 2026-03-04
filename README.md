@@ -97,7 +97,7 @@ openpyxl
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/turkish-llm-eval.git
+git clone https://github.com/TarikYil/turkish-llm-eval.git
 cd turkish-llm-eval
 
 # Install dependencies
@@ -178,10 +178,10 @@ If you use this code or the benchmark results in your research, please cite:
 ```bibtex
 @inproceedings{turkish_llm_eval_siu2026,
   title     = {Comparative Evaluation of Open-Source Turkish Large Language Models Across Multiple Benchmarks},
-  author    = {<Author Names>},
+  author    = {Y{\i}lmaz, Muhammet Tar{\i}k and \c{C}ak{\i}r, Yusuf},
   booktitle = {IEEE 34th Signal Processing and Communications Applications Conference (SIU)},
   year      = {2026},
-  note      = {Code available at https://github.com/<your-username>/turkish-llm-eval}
+  note      = {Code available at https://github.com/TarikYil/turkish-llm-eval}
 }
 ```
 
