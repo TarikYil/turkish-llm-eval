@@ -3,6 +3,7 @@
 **A Comprehensive Evaluation Framework for Open-Source Turkish Large Language Models**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18861750.svg)](https://doi.org/10.5281/zenodo.18861750)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Google Colab](https://img.shields.io/badge/Run%20in-Google%20Colab-orange?logo=googlecolab)](https://colab.research.google.com/)
 
@@ -177,7 +178,7 @@ If you use this code or the benchmark results in your research, please cite:
 
 ```bibtex
 @inproceedings{turkish_llm_eval_siu2026,
-  title     = {Comparative Evaluation of Open-Source Turkish Large Language Models Across Multiple Benchmarks},
+  title     = {Comparative Analysis of Reliability and Reasoning in Turkish Large Language Models},
   author    = {Y{\i}lmaz, Muhammet Tar{\i}k and \c{C}ak{\i}r, Yusuf},
   booktitle = {IEEE 34th Signal Processing and Communications Applications Conference (SIU)},
   year      = {2026},
