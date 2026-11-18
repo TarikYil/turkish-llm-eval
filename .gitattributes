@@ -1,0 +1,2 @@
+# Store every file byte-for-byte so SHA256SUMS.txt matches the GitHub/Zenodo archive
+* -text

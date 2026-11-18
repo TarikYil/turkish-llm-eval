@@ -1,212 +1,127 @@
-# Turkish LLM Benchmark Suite
+# Turkish LLM Multi-Axis Evaluation Suite — v2.0.0
 
-**A Multidimensional Comparison of Turkish Large Language Models: Knowledge, Reasoning, and Reliability**
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18861749.svg)](https://doi.org/10.5281/zenodo.18861749)
+[![Paper DOI](https://img.shields.io/badge/IEEE-10.1109%2FASYU71790.2026.11772376-blue)](https://doi.org/10.1109/ASYU71790.2026.11772376)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18861750.svg)](https://doi.org/10.5281/zenodo.18861750)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Google Colab](https://img.shields.io/badge/Run%20in-Google%20Colab-orange?logo=googlecolab)](https://colab.research.google.com/)
- 
----
+This release contains the code and per-item results for:
 
-## Overview
+> M. T. Yılmaz, M. A. Pala, Y. Çakır, "A Multi-Axis Comparative Evaluation of Turkish Large Language Models across Knowledge, Reasoning, and Reliability," *2026 Innovations in Intelligent Systems and Applications Conference (ASYU)*, IEEE, 2026. doi:[10.1109/ASYU71790.2026.11772376](https://doi.org/10.1109/ASYU71790.2026.11772376)
 
-This repository contains the benchmarking code and evaluation pipeline accompanying the paper:
+Seven open-weight Turkish LLMs are evaluated on six benchmarks. All models use a shared scoring protocol and fixed inference settings. Pairwise differences between models are tested with McNemar's test, and scores are reported with Wilson confidence intervals.
 
-> **A Multidimensional Comparison of Turkish Large Language Models: Knowledge, Reasoning, and Reliability**
-> *Submitted to SIU 2026 — IEEE 34th Signal Processing and Communications Applications Conference*
+**Changes from v1.0.0.** v1.0.0 was the pre-review pipeline. v2.0.0 is the version used for the published paper:
 
-The framework evaluates **7 open-source Turkish LLMs** across **6 diverse benchmarks**, covering knowledge, reasoning, mathematical problem-solving, commonsense inference, truthfulness, and hallucination detection capabilities.
+- Multiple-choice tasks are scored by log-likelihood. There is no parsing of generated text.
+- TruthfulQA uses the MC1/MC2 protocol.
+- Generation uses greedy decoding with seed 42.
+- Every model is evaluated on the same fixed subsets.
+- 4-bit NF4 is the only quantization setting used.
+- Statistical testing has been added.
 
----
+The v1.0.0 code is still available under the git tag `v1.0.0`.
 
-## Evaluated Models
+## Contents
 
-| Model | HuggingFace ID | Parameters | Family |
-|-------|---------------|------------|--------|
-| CosmosGemma-9B (Instruct) | `ytu-ce-cosmos/Turkish-Gemma-9b-v0.1` | 9B | Cosmos |
-| Trendyol-7B-Chat v0.1 | `Trendyol/Trendyol-LLM-7b-chat-v0.1` | 7B | Trendyol |
-| Trendyol-7B-Chat v4.1 | `Trendyol/Trendyol-LLM-7B-chat-v4.1.0` | 7B | Trendyol |
-| WiroAI-9B (Instruct) | `WiroAI/wiroai-turkish-llm-9b` | 9B | WiroAI |
-| WiroAI-8B (Instruct) | `WiroAI/wiroai-turkish-llm-8b` | 8B | WiroAI |
-| KoçDigital-8B v0.1 | `KOCDIGITAL/Kocdigital-LLM-8b-v0.1` | 8B | KoçDigital |
-| Kumru-2B | `vngrs-ai/Kumru-2B` | 2B | Kumru |
+| Path | What it is |
+|---|---|
+| `notebook/turkish_llm_eval_asyu2026.ipynb` | The evaluation notebook as run on Google Colab. Code is unchanged; outputs are removed. The first cell gives the run order. |
+| `results/result_<model>.json` | Per model and benchmark: the summary metrics, plus `item_correct`, a 0/1 correctness value for every scored item. Also `mc2_per_item` for TruthfulQA, `pred`/`gold` class indices where they were recorded, and the confusion counts for HalluVerse-M3. |
+| `data/subset_manifest.csv` | The exact items evaluated, given as hashes. It contains no benchmark text. |
+| `scripts/recompute_stats.py` | Recomputes the Wilson CIs, the MC2 bootstrap CIs and the pairwise McNemar tests from `results/`. Needs numpy and scipy only. |
+| `scripts/check_subset.py` | Checks that a `benchmarks.json` you rebuilt matches the subset used in the paper. |
+| `requirements.txt` | The package versions from the original run. |
+| `SHA256SUMS.txt` | Checksums for every file in the release. |
 
----
+## Models
 
-## Benchmarks
+| Key | Hugging Face ID | Prompting |
+|---|---|---|
+| `cosmos_gemma_9b` | ytu-ce-cosmos/Turkish-Gemma-9b-v0.1 | chat template, zero-shot |
+| `trendyol_7b_chat` | Trendyol/Trendyol-LLM-7b-chat-v0.1 | chat template, zero-shot |
+| `trendyol_7b_chat_v4` | Trendyol/Trendyol-LLM-7B-chat-v4.1.0 | chat template, zero-shot |
+| `wiroai_9b` | WiroAI/wiroai-turkish-llm-9b | chat template, zero-shot |
+| `wiroai_8b` | WiroAI/wiroai-turkish-llm-8b | chat template, zero-shot |
+| `kocdigital_8b` | KOCDIGITAL/Kocdigital-LLM-8b-v0.1 | chat template, zero-shot |
+| `kumru_2b_base` | vngrs-ai/Kumru-2B-Base | raw prompt; 3-shot on GSM8K-TR only |
 
-| Benchmark | Task Type | Source Dataset | Metric(s) |
-|-----------|-----------|---------------|------------|
-| **MMLU-TR** | Multiple-choice knowledge | `malhajar/mmlu-tr` (12 subject configs) | Accuracy, Macro F1 |
-| **ARC-TR** | Science reasoning (multiple-choice) | `malhajar/arc-tr` | Accuracy, Macro F1 |
-| **HellaSwag-TR** | Commonsense / sentence completion | `malhajar/hellaswag-tr` | Accuracy, Macro F1 |
-| **GSM8K-TR** | Mathematical reasoning (open-ended) | `malhajar/gsm8k_tr-v0.2` | Exact Match, Loose Match |
-| **TruthfulQA-TR** | Truthfulness evaluation | `malhajar/truthfulqa-tr` | ROUGE-L, Keyword Match |
-| **HalluVerse-M3** | Hallucination detection | `sabdalja/HalluVerse-M3` (Turkish QA subset) | Miss Rate, Binary Acc, F1, Factual Accuracy |
+All models were loaded in 4-bit NF4 with bitsandbytes (double quantization, fp16 compute).
 
-For MMLU-TR, the following 12 subject categories are used: formal logic, logical fallacies, philosophy, moral scenarios, conceptual physics, machine learning, global facts, world religions, international law, security studies, professional medicine, and virology.
+## Benchmarks and protocol
 
----
+| Axis | Benchmark (source) | Items scored | Scoring |
+|---|---|---|---|
+| Knowledge | MMLU-TR, 12 subjects (`malhajar/mmlu-tr`) | 2905 | log-likelihood of the option letter; accuracy and macro-F1 |
+| Scientific reasoning | ARC-TR, Challenge (`malhajar/arc-tr`) | 1167 of 1169 | as for MMLU-TR |
+| Commonsense | HellaSwag-TR (`malhajar/hellaswag-tr`) | 1000 | log-likelihood of the full ending, normalized by token length |
+| Math reasoning | GSM8K-TR (`malhajar/gsm8k_tr-v0.2`) | 500 | greedy generation, max 300 new tokens; exact match on the final number |
+| Reliability | TruthfulQA-TR (`malhajar/truthfull_qa-tr`) | 500 | length-normalized log-likelihood; MC1 and MC2 |
+| Hallucination | HalluVerse-M3, Turkish QA (`sabdalja/HalluVerse-M3`) | 800 (402 hallucinated / 398 faithful) | greedy generation, max 8 new tokens; DOĞRU/YANLIŞ label; accuracy and F1 |
 
-## Repository Structure
+**How the subsets were drawn.** Each benchmark was shuffled with `random.seed(42)` and the first N items were kept. All models see the same items in the same order. This pairing is what makes McNemar's test valid.
 
-```
-.
-├── README.md                          # This file
-├── LICENSE                            # MIT License
-├── turkish_llm_benchmark.ipynb        # Main evaluation notebook
-├── requirements.txt                   # Python dependencies
-└── siu2026_results/                   # Output directory (generated at runtime)
-    ├── full_results_<timestamp>.json  # Detailed per-question results
-    └── summary_<timestamp>.csv        # Aggregated performance table
-```
+**ARC item count.** Two ARC items have the answer key `"4"`. The scorer skips them, so 1167 of the 1169 items are scored. See *Known issue* below.
 
----
+**Kumru-2B-Base few-shot examples.** The 3-shot context for Kumru on GSM8K-TR uses three hand-written examples. These are `_GSM8K_FEWSHOT_DEFAULT` in the notebook. The dataset has no train split, so the code falls back to them. They are not part of the test set. The Kumru GSM8K score is a base-model reference only and is not comparable to the zero-shot scores.
 
-## Requirements
+## Known issue: ARC-TR answer keys given as digits
 
-- Python 3.8+
-- CUDA-compatible GPU with at least 16 GB VRAM (24 GB recommended)
-- ~50 GB disk space for model weights (downloaded on first run)
+Most ARC-TR answer keys are letters (`A`–`D`). In the 1169-item subset, 22 keys are digits (`"1"`–`"4"`). These digits follow the original ARC convention and are **1-based**. The notebook's `_normalize_gold` reads them as **0-based**. As a result:
 
-### Dependencies
+- 20 scored items were compared against the option *after* the correct one.
+- The 2 items with key `"4"` were treated as out of range and skipped.
 
-```
-torch>=2.0
-transformers>=4.38
-accelerate>=0.25
-bitsandbytes>=0.46.1
-datasets
-rouge-score
-sentencepiece
-openpyxl
-```
-
----
-
-## Quick Start
-
-### Option 1: Google Colab (Recommended)
-
-1. Upload `turkish_llm_benchmark.ipynb` to Google Colab.
-2. Select a GPU runtime: **Runtime → Change runtime type → T4 or A100**.
-3. Run all cells sequentially. The first two cells install required packages.
-4. Results will be saved to the `siu2026_results/` directory.
-
-### Option 2: Local Execution
+The manifest marks all 22 items with `flag = arc_digit_key`. The files in `results/` keep the scores exactly as computed for the paper. For models whose predictions were stored, the corrected ARC-TR scores can be recomputed:
 
 ```bash
-# Clone the repository
-git clone https://github.com/TarikYil/turkish-llm-eval.git
-cd turkish-llm-eval
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Launch Jupyter and open the notebook
-jupyter notebook turkish_llm_benchmark.ipynb
+python scripts/recompute_stats.py --arc-corrected
 ```
 
----
+This re-scores the 20 items as `pred == gold - 1`. The 2 skipped items cannot be recovered without re-running the models. Every other benchmark is unaffected: MMLU and HellaSwag keys are 0-based, and TruthfulQA, GSM8K and HalluVerse do not use option indices.
 
-## Configuration
+**Impact on ARC-TR accuracy (n = 1167).** Four models have stored predictions, so their corrected scores are exact. Three do not. For those three, the range is bounded as follows:
 
-Key parameters can be adjusted in the `CONFIG` dictionary at the top of the notebook:
+- Lower bound: every flagged item is wrong. An item counted correct before is now certainly wrong, and an item counted wrong before is assumed to stay wrong.
+- Upper bound: every flagged item counted wrong before is now correct.
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `quantization` | `"4bit"` | Quantization mode: `"4bit"`, `"8bit"`, or `"none"` |
-| `max_samples_per_benchmark` | `100` | Maximum number of questions per benchmark |
-| `max_new_tokens` | `256` | Maximum generation length per response |
-| `temperature` | `0.7` | Sampling temperature |
-| `top_p` | `0.9` | Nucleus sampling threshold |
-| `seed` | `42` | Random seed for reproducibility |
-| `output_dir` | `"siu2026_results"` | Directory for saving results |
+| Model | Published | Corrected |
+|---|---|---|
+| CosmosGemma-9B | 78.1 | 78.0 – 79.6 (no stored predictions) |
+| WiroAI-9B | 73.9 | 75.3 |
+| Trendyol-7B v4.1 | 68.9 | 70.1 |
+| WiroAI-8B | 63.5 | 64.7 |
+| KoçDigital-8B | 54.2 | 55.4 |
+| Trendyol-7B v0.1 | 23.5 | 23.4 – 25.0 (no stored predictions) |
+| Kumru-2B-Base | 23.4 | 22.9 – 24.1 (no stored predictions) |
 
----
+The corrections change scores by at most about 1.5 percentage points. The number of significantly different ARC-TR pairs stays at 20/21 under both bounds. The only pair that is not significant is still Trendyol-7B v0.1 vs Kumru-2B-Base. The ranking of the top five models does not change. The paper's qualitative conclusions are therefore unaffected.
 
-## Pipeline Architecture
+## Reproducing the statistics (no GPU)
 
-The evaluation pipeline follows a modular design with the following stages:
+```bash
+pip install numpy scipy
+python scripts/recompute_stats.py --csv stats_out/
+```
 
-1. **Configuration & Model Registry** — Defines hyperparameters and model metadata.
-2. **Dataset Loaders** — Loads Turkish benchmark datasets from HuggingFace Hub with built-in fallback questions if remote loading fails.
-3. **Model Loader** — Loads models with configurable quantization (4-bit NF4, 8-bit, or FP16) using BitsAndBytes.
-4. **Inference Engine** — Generates responses with automatic chat template detection and application (critical for Qwen2.5-based and Gemma-2 architectures).
-5. **Benchmark Runners** — Task-specific evaluation functions with per-class F1 tracking, subject-level breakdowns, and detailed logging.
-6. **Answer Extraction** — Robust post-processing with multi-pattern matching for choice extraction and numerical answer parsing.
-7. **Results Export** — Saves full per-question results (JSON) and aggregated summary tables (CSV).
+The output gives, for each benchmark, every model's score with its 95% Wilson CI and the number of model pairs that differ significantly by McNemar (p < 0.05). The paper reports these pair counts as 20/21 for knowledge, 20/21 for scientific reasoning, 18/21 for commonsense, 17/21 for math reasoning, 9/21 for reliability and 15/21 for hallucination detection.
 
----
+## Re-running the evaluation (GPU)
 
-## Output Format
+Open the notebook in Google Colab with a GPU runtime and follow the run order in its first cell. Two things differ from the original run:
 
-### JSON (Full Results)
+1. **Rebuilding the data.** The notebook downloads the benchmarks from Hugging Face at run time. Datasets can change upstream. After building `benchmarks.json`, run `python scripts/check_subset.py benchmarks.json` to confirm you have the same items.
+2. **Run-to-run differences.** The `torch` version and the GPU type were not recorded. Even with greedy decoding, 4-bit GPU inference is not bit-exact across runs. An earlier WiroAI-9B run with the same code and data differed from the released run in two ways:
+   - 4 of 500 GSM8K-TR items (40.2% vs 40.6%);
+   - small differences in TruthfulQA MC2.
 
-Each model's entry contains per-benchmark detailed results including every question, the model's raw response, extracted prediction, expected answer, and correctness flag. This enables fine-grained error analysis.
+   The files in `results/` are the runs used in the paper.
 
-### CSV (Summary)
+## Data and licensing
 
-A single row per model with columns for each metric across all benchmarks, including an overall average accuracy score.
-
----
-
-## Methodology Notes
-
-- **Quantization**: All models are evaluated under 4-bit NF4 quantization by default to ensure fair comparison under constrained GPU memory. This allows running 9B-parameter models on a single T4 GPU.
-- **Chat Templates**: The inference engine automatically detects and applies model-specific chat templates (e.g., for Qwen2.5-based models), falling back to raw prompt injection when no template is available.
-- **Sampling**: 100 questions per benchmark are randomly sampled (with a fixed seed) from each dataset to balance evaluation thoroughness with computational cost.
-- **Hallucination Evaluation**: Uses the HalluVerse-M3 Turkish QA subset, generating paired faithful/hallucinated examples from each data point. Detection relies on linguistic pattern matching for Turkish hedging and confidence markers.
-
----
-
-## Reproducibility
-
-To reproduce the results reported in the paper:
-
-1. Use the default `CONFIG` values (seed=42, quantization=4bit, max_samples=100).
-2. Run on a CUDA-enabled GPU (results were generated on NVIDIA T4 / A100).
-3. Ensure `transformers>=4.38` for consistent chat template behavior.
-4. Dataset versions are pinned to the HuggingFace Hub identifiers listed in the Benchmarks section.
-
----
+- **Code** (the notebook and scripts) is released under the MIT License.
+- **Benchmark text is not redistributed.** The data belongs to the respective dataset authors and is subject to their licenses. Only hashes and per-item 0/1 outcomes are included here.
+- **Results** in `results/` are released under the same MIT terms as the code.
 
 ## Citation
 
-If you use this code or the benchmark results in your research, please cite:
-
-```bibtex
-@inproceedings{turkish_llm_eval_siu2026,
-  title     = {A Multidimensional Comparison of Turkish Large Language Models: Knowledge, Reasoning, and Reliability},
-  author    = {Yilmaz, Muhammet Tarik and Cakir, Yusuf},
-  booktitle = {IEEE 34th Signal Processing and Communications Applications Conference (SIU)},
-  year      = {2026},
-  note      = {Code available at https://github.com/TarikYil/turkish-llm-eval}
-}
-
-@software{yilmaz_turkish_llm_eval_2026,
-  author    = {Yilmaz, Muhammet Tarik and Cakır, Yusuf},
-  title     = {Turkish LLM Benchmark Suite},
-  year      = {2026},
-  version   = {v1.0.0},
-  publisher = {Zenodo},
-  doi       = {10.5281/zenodo.18861750},
-  url       = {https://doi.org/10.5281/zenodo.18861750}
-}
-```
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-The benchmark datasets are subject to their respective licenses on HuggingFace Hub. The evaluated models are subject to their own model licenses as specified by their creators.
-
----
-
-## Acknowledgments
-
-- [HuggingFace](https://huggingface.co/) for the Transformers library and dataset hosting.
-- Dataset creators: [malhajar](https://huggingface.co/malhajar) for MMLU-TR, ARC-TR, HellaSwag-TR, GSM8K-TR, and TruthfulQA-TR translations; [sabdalja](https://huggingface.co/sabdalja) for HalluVerse-M3.
-- Model creators: YTU CE Cosmos, Trendyol, WiroAI, KoçDigital, and VNGRS AI teams.
-- [BitsAndBytes](https://github.com/bitsandbytes-foundation/bitsandbytes) for efficient quantization support.
+Please cite the paper above. Machine-readable metadata is in `CITATION.cff`.
