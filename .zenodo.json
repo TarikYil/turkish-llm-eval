@@ -1,0 +1,41 @@
+{
+  "upload_type": "software",
+  "title": "Turkish LLM Multi-Axis Evaluation Suite: code and per-item results for the ASYU 2026 paper",
+  "creators": [
+    {
+      "name": "Yılmaz, Muhammet Tarık",
+      "affiliation": "Sakarya Uygulamalı Bilimler Üniversitesi",
+      "orcid": "0009-0003-1393-2544"
+    },
+    {
+      "name": "Çakır, Yusuf",
+      "affiliation": "Necmettin Erbakan Üniversitesi",
+      "orcid": "0009-0000-7089-8424"
+    }
+  ],
+  "description": "<p>Code and per-item results for <em>A Multi-Axis Comparative Evaluation of Turkish Large Language Models across Knowledge, Reasoning, and Reliability</em> (ASYU 2026, IEEE, doi:10.1109/ASYU71790.2026.11772376).</p><p>Seven open-weight Turkish LLMs are evaluated on six benchmarks under one shared protocol: CosmosGemma-9B, Trendyol-7B v0.1, Trendyol-7B v4.1, WiroAI-9B, WiroAI-8B, KoçDigital-8B and Kumru-2B-Base. The benchmarks are MMLU-TR, ARC-TR, HellaSwag-TR, GSM8K-TR, TruthfulQA-TR (MC1/MC2) and HalluVerse-M3. Multiple-choice tasks are scored by log-likelihood. Generation tasks use greedy decoding with seed 42. All models are loaded in 4-bit NF4. Pairwise differences are tested with McNemar's test, and scores carry Wilson 95% confidence intervals.</p><p><strong>The release contains:</strong></p><ul><li>the evaluation notebook as run, with outputs removed;</li><li>per-model, per-item 0/1 results;</li><li>a hash-only manifest of the evaluated subsets;</li><li>scripts that recompute every confidence interval and McNemar test without a GPU, and that check a rebuilt subset.</li></ul><p>No benchmark text is redistributed. A known issue in ARC-TR answer-key indexing is documented in the README.</p><p><strong>Changes from v1.0.0.</strong> v2.0.0 is the version used for the published paper. It adds log-likelihood scoring, the TruthfulQA MC protocol, deterministic decoding, fixed shared subsets and statistical testing. It replaces the pre-review pipeline.</p>",
+  "access_right": "open",
+  "license": "mit",
+  "language": "eng",
+  "keywords": [
+    "Turkish large language models",
+    "benchmark evaluation",
+    "MMLU-TR",
+    "ARC-TR",
+    "HellaSwag-TR",
+    "GSM8K-TR",
+    "TruthfulQA-TR",
+    "HalluVerse-M3",
+    "hallucination detection",
+    "McNemar test",
+    "Wilson confidence interval"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.1109/ASYU71790.2026.11772376",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-conferencepaper",
+      "scheme": "doi"
+    }
+  ]
+}

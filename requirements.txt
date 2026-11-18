@@ -1,8 +1,16 @@
-torch>=2.0
-transformers>=4.38
-accelerate>=0.25
-bitsandbytes>=0.46.1
-datasets
-rouge-score
+# Versions installed in the Google Colab run that produced the paper's results
+# (taken from the pip output in the notebook). torch and accelerate came from the
+# Colab GPU runtime; their exact versions were not recorded.
+transformers==5.10.2
+bitsandbytes==0.49.2
+datasets==5.0.0
+huggingface_hub==1.18.0
+pandas==3.0.3
+pyarrow==24.0.0
+scipy==1.17.1
+accelerate
+torch
 sentencepiece
 openpyxl
+
+# Only numpy and scipy are needed to run scripts/recompute_stats.py.
