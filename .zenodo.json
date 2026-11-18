@@ -30,6 +30,12 @@
     "McNemar test",
     "Wilson confidence interval"
   ],
+  "conference_title": "2026 Innovations in Intelligent Systems and Applications Conference",
+  "conference_acronym": "ASYU 2026",
+  "conference_dates": "9-11 September 2026",
+  "conference_place": "Özyeğin University, Çekmeköy Campus, Istanbul, Türkiye",
+  "conference_url": "https://asyu2026.ozyegin.edu.tr/en",
+  "conference_session": "33 (NLP & Language Tech)",
   "related_identifiers": [
     {
       "identifier": "10.1109/ASYU71790.2026.11772376",
